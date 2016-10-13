@@ -160,12 +160,12 @@ Exemplo:
             \small
             \texttt{ \textbf{ (gdb) {\color{blue}continue} } }
         \end{center}
-        \item Pode executar a linha que está e parar na próxima linha de código;
+        \item PExecuta a linha que está e vai para a próxima:
         \begin{center}
             \small
             \texttt{ \textbf{ (gdb) {\color{blue} next} } }
         \end{center}
-        \item Pode pular para a próxima linha, executá-la e parar;
+        \item Executa a linha que está e vai para a próxima, se tiver chamada de função entra na função:
         \begin{center}
             \small
             \texttt{ \textbf{ (gdb) {\color{blue} step} } }
@@ -194,11 +194,11 @@ Exemplo:
     Suponhamos o seguinte trecho de código:
     
     \begin{lstlisting}
-        ...
-        int a = 5, b = 6;
-        int n = a + b;
-        int *vet = (int *) malloc ( sizeof(int) * n);
-        ...
+    ...
+    int a = 5, b = 6;
+    int n = a + b;
+    int *vet = (int *) malloc ( sizeof(int) * n);
+    ...
     \end{lstlisting}
     
     \begin{center}
@@ -288,7 +288,7 @@ Exemplo:
 ]}
 \begin{frame}{Perseguindo Variáveis}
 
-    Perseguindo Variáveis é um título de minha autoria para o que o gdb define como \textit{Watchpoints}. \textit{Watchpoints} permitem você acompanhar uma variável durante toda a execução do programa, parando a execução \textbf{sempre} que o conteúdo desta variável for modificado.
+    Perseguindo Variáveis é um título que o gdb define como \textit{Watchpoints}. \textit{Watchpoints} permitem você acompanhar uma variável durante toda a execução do programa, parando a execução \textbf{sempre} que o conteúdo desta variável for modificado.
     
     O comando é:
     
