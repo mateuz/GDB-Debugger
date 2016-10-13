@@ -1,0 +1,95 @@
+%% General document %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{graphicx}
+\usepackage{tikz}
+%\usetikzlibrary{decorations.fractals}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%% Beamer Layout %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\useoutertheme[subsection=false,shadow]{miniframes}
+\useinnertheme{default}
+\usefonttheme{serif}
+\usepackage{palatino}
+
+\setbeamerfont{title like}{shape=\scshape}
+\setbeamerfont{frametitle}{shape=\scshape}
+
+%\setbeamercolor*{lower separation line head}{bg=DeepSkyBlue4} 
+
+\definecolor{green2}{rgb}{0.0, 0.5, 0.0}
+
+\setbeamercolor*{lower separation line head}{bg=green2}
+\setbeamercolor*{normal text}{fg=black,bg=white} 
+\setbeamercolor*{alerted text}{fg=red} 
+\setbeamercolor*{example text}{fg=black} 
+\setbeamercolor*{structure}{fg=black} 
+ 
+\setbeamercolor*{palette tertiary}{fg=black,bg=black!10} 
+\setbeamercolor*{palette quaternary}{fg=black,bg=black!10} 
+
+\renewcommand{\(}{\begin{columns}}
+\renewcommand{\)}{\end{columns}}
+\newcommand{\<}[1]{\begin{column}{#1}}
+\renewcommand{\>}{\end{column}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%Numero Página:
+\addtobeamertemplate{navigation symbols}{}{%
+    \usebeamerfont{footline}%
+    \usebeamercolor[fg]{footline}%
+    \hspace{1em}%
+    \insertframenumber/\inserttotalframenumber
+}
+\setbeamercolor{footline}{fg=black}
+\setbeamerfont{footline}{series=\scshape}
+
+%% Mateus Boiani Packages includes %%
+\usepackage[utf8]{inputenc}
+\usepackage{verbatim}
+\usepackage[brazil]{babel}
+\usepackage{listings}
+\usepackage{multirow}
+\usepackage{verbatim}
+\usepackage{color}
+\usepackage{float}
+\usepackage{mathtools}
+\usepackage{xcolor}
+\usepackage{textcomp}
+\usepackage[alf]{abntex2cite}
+\usepackage{hyperref}
+\usepackage{minted}
+\usepackage{listings} 
+\usepackage{color}
+
+%\usepackage[table]{xcolor}
+
+\definecolor{dartmouthgreen}{rgb}{0.05, 0.5, 0.06}
+\definecolor{ferrarired}{rgb}{1.0, 0.11, 0.0}
+\definecolor{darkgray}{rgb}{0.66, 0.66, 0.66}
+\definecolor{darkorange}{rgb}{1.0, 0.55, 0.0}
+
+\lstdefinestyle{customc}{
+    belowcaptionskip=1\baselineskip,
+    breaklines=true,
+    frame=L,
+    xleftmargin=\parindent,
+    language = C,
+    showstringspaces=false,
+    numbersep=12pt,
+    basicstyle=\footnotesize\ttfamily\normal,
+    keywordstyle=\bfseries\color{dartmouthgreen},
+    commentstyle=\itshape\color{ferrarired},
+    identifierstyle=\color{blue},
+    stringstyle=\color{darkorange},
+    numbers=left,
+    numberstyle=\small\color{black},
+    frame = single
+}
+\lstset{escapechar=@, style=customc}
+
+\setbeamertemplate{footnote}{%
+  \hangpara{2em}{1}%
+  \makebox[2em][l]{\insertfootnotemark}\footnotesize\insertfootnotetext\par%
+}
+
+%% End Mateus Boiani Packages includes %%

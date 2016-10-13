@@ -1,0 +1,328 @@
+\section{\scshape GDB}
+\frame{\tableofcontents[
+    currentsection,
+    currentsubsection,
+    subsectionstyle=show/shaded/hide
+]}
+
+\subsection{ O que é gdb?}
+\frame{\tableofcontents[
+    currentsection,
+    currentsubsection,
+    subsectionstyle=show/shaded/hide
+]}
+\begin{frame}{O que é gdb?}
+    \begin{itemize}
+        \item É um depurador :o 
+        \item Um depurador permite a visualização do que esta acontecendo dentro de um programa enquanto ele esta sendo executado.
+        \item Permite quatro tipos de operações principais:
+        \begin{itemize}
+            \item Iniciar o programa especificando qualquer coisa que possa afetar seu comportamento;
+            \item Fazer o programa parar em condições especificas;
+            \item Examinar o que aconteceu quando o programa foi interrompido;
+            \item Modificar informações no programa, de modo que seja possível experimentar os efeitos de uma correção;
+        \end{itemize}
+        \item Funciona em diversas linguagens de programação além de C e C++;
+    \end{itemize}
+\end{frame}
+
+\subsection{ Preparando o Executável }
+\frame{\tableofcontents[
+    currentsection,
+    currentsubsection,
+    subsectionstyle=show/shaded/hide
+]}
+\begin{frame}[fragile]{Como utilizá-lo?}
+
+Geralmente compilamos assim:
+
+\begin{center}
+    \small
+    \texttt{ \textbf{ gcc [{\color{blue} flags}]  $<${\color{dartmouthgreen} arquivos fonte}$>$ -o $<${\color{dartmouthgreen} saida}$>$}}
+\end{center}
+\\[2.0em]
+Exemplo:
+\begin{center}
+    \small
+    \texttt{ \textbf{ gcc {\color{blue} -Wall}  {\color{dartmouthgreen} main.c} -o {\color{dartmouthgreen} main} }}
+\end{center}
+
+Para usar o gdb precisamos compilar usando {\color{red} \textbf{-g}} para habilitar o suporte a debugg:
+
+\begin{center}
+    \small
+    \texttt{ \textbf{ gcc [{\color{blue} flags}] {\color{red} -g} $<${\color{dartmouthgreen} arquivos fonte}$>$ -o $<${\color{dartmouthgreen} saida}$>$}}
+\end{center}
+\\[2.0em]
+Exemplo:
+\begin{center}
+    \small
+    \texttt{ \textbf{ gcc {\color{blue} -Wall}  {\color{red} -g}  {\color{dartmouthgreen} main.c} -o {\color{dartmouthgreen} main} }}
+\end{center}
+
+\end{frame}
+
+\subsection{ Usando o GDB }
+\frame{\tableofcontents[
+    currentsection,
+    currentsubsection,
+    subsectionstyle=show/shaded/hide
+]}
+\begin{frame}{Iniciando}
+    \begin{itemize}
+        \item Simplesmente digite ``gdb'' para entrar na interface. \texttt{\textbf{(gdb)}}
+        \item É possível selecionar o executável que você deseja depurar de duas formas:
+        \begin{enumerate}
+            \item \textbf{ \texttt{gdb $<${\color{dartmouthgreen} arquivo compilado}$>$} }
+            \item Após entrar na interface digitar: \textbf{\texttt{(gdb) {\color{blue} file} $<${\color{dartmouthgreen}arquivo compilado}$>$}}
+        \end{enumerate}
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Executando o programa}
+    Para executar o programa basta executar:
+    \begin{center}
+        \small
+        \texttt{ \textbf{ (gdb) {\color{dartmouthgreen} run}}}
+        \\ \texttt{ \textbf{ ou } } \\
+        \texttt{ \textbf{ (gdb) {\color{dartmouthgreen} r}}}
+    \end{center}
+    
+    Se o programa não tiver nenhum erro, ele vai executar normalmente como deveria. Caso contrário ele ira retornar alguma informação que possa ser útil para localizar o erro, como:
+    
+    \begin{itemize}
+        \item Linha que o programa estava executando quando parou;
+        \item Função que estava executando;
+        \item Paramêtros que a função recebeu;
+        \item Entre outros;
+    \end{itemize}
+\end{frame}
+
+\section{ \scshape Depurando o Programa }
+\frame{\tableofcontents[
+    currentsection,
+    currentsubsection,
+    subsectionstyle=show/shaded/hide
+]}
+\begin{frame}{ Depurando o Programa }
+    Caso seu programa não esteja executando corretamente, com o gdb você pode investigar o problema de diversas formas, como:
+    \begin{itemize}
+        \item Executar o programa passo a passo;
+        \item Utilizar pontos de parada;
+        \item Utilizar pontos de parada condicional;
+        \item Perseguindo Variáveis;
+        \item Consultando e Modificando o conteúdo das variáveis em tempo de execução;
+        \item Entre outros;
+    \end{itemize}
+\end{frame}
+
+\subsection{ Utilizando Pontos de Parada }
+\frame{\tableofcontents[
+    currentsection,
+    currentsubsection,
+    subsectionstyle=show/shaded/hide
+]}
+\begin{frame}{Utilizando Pontos de Parada}
+
+    Pontos de Parada ou \textit{Breakpoints} podem ser usados para parar o programa no meio da sua execução em um determinado ponto. Esse ponto pode ser determinado pelo comando \texttt{\textbf{{\color{blue}break}}}. O comando pode ser combinado e utilizado de diversas formas, indicando que o programa pare em uma linha, em uma função ou quando uma condição for satisfeita.
+    
+    Exemplo, parando em uma linha especifica:
+    
+    \begin{center}
+        \small
+        \texttt{ \textbf{ (gdb) {\color{blue}break}  {\color{black}arqfonte}{\color{red}.c}:$<${\color{dartmouthgreen}line}$>$ }}
+    \end{center}
+\end{frame}
+
+\begin{frame}[fragile]{Utilizando Pontos de Parada}
+
+    Exemplo, parando em uma função especifica:
+    
+    Suponhamos que a função abaixo esteja definida:
+    
+    \begin{lstlisting}
+        int func(char *name, int *age);
+    \end{lstlisting}
+    
+    Podemos parar sempre que esta função for chamada desta forma:
+    \begin{center}
+        \small
+        \texttt{ \textbf{ (gdb) {\color{blue}break} {\color{red} func} } }
+    \end{center}
+\end{frame}
+
+\begin{frame}{Depois de Parar em um Ponto de Parada}
+    Depois de parar em um ponto de parada você pode fazer várias coisas, como:
+    \begin{itemize}
+        \item Continuar até o próximo ponto de parada;
+        \begin{center}
+            \small
+            \texttt{ \textbf{ (gdb) {\color{blue}continue} } }
+        \end{center}
+        \item Pode executar a linha que está e parar na próxima linha de código;
+        \begin{center}
+            \small
+            \texttt{ \textbf{ (gdb) {\color{blue} next} } }
+        \end{center}
+        \item Pode pular para a próxima linha, executá-la e parar;
+        \begin{center}
+            \small
+            \texttt{ \textbf{ (gdb) {\color{blue} step} } }
+        \end{center}
+        \item Avaliar o valor das variáveis;
+        \begin{center}
+            \small
+            \texttt{ \textbf{ (gdb) {\color{blue} print} $<${\color{red} var}$>$ } }
+        \end{center}
+        \item Entre outros;
+    \end{itemize}
+    
+\end{frame}
+
+\subsection{ Pontos de Parada Condicionais }
+\frame{\tableofcontents[
+    currentsection,
+    currentsubsection,
+    subsectionstyle=show/shaded/hide
+]}
+\begin{frame}[fragile]{Pontos de Parada Condicionais}
+    Permite definir um ponto de parada e só parar quando uma condição específica ocorrer.
+    
+    Exemplo:
+    
+    Suponhamos o seguinte trecho de código:
+    
+    \begin{lstlisting}
+        ...
+        int a = 5, b = 6;
+        int n = a + b;
+        int *vet = (int *) malloc ( sizeof(int) * n);
+        ...
+    \end{lstlisting}
+    
+    \begin{center}
+        \small
+        \texttt{ \textbf{ (gdb) {\color{blue}break}  {\color{black}arqfonte}{\color{red}.c}:{\color{dartmouthgreen}4} {\color{red} if n > 10 }}}
+    \end{center}
+\end{frame}
+
+\subsection{ Consultando Varáveis e Modificando seu Conteúdo }
+\frame{\tableofcontents[
+    currentsection,
+    currentsubsection,
+    subsectionstyle=show/shaded/hide
+]}
+\begin{frame}[fragile]{Consultando Variáveis}
+
+    É possível consultar o conteúdo de uma variável da seguinte forma:
+    
+    \begin{center}
+        \small
+        \texttt{ \textbf{ (gdb) {\color{blue} print} $<${\color{red} var}$>$ }}
+    \end{center}
+    Se a variável for um ponteiro é possível resolvê-lo antes de imprimir. De forma similar é possível acessar valor específicos de uma estrutura.
+
+\end{frame}
+
+\begin{frame}[fragile]{Consultando Variáveis}
+    Outra forma de ver o conteúdo de uma variável, por exemplo vetor é da seguinte forma, suponhamos o trecho de alocação abaixo:
+    
+    \begin{lstlisting}
+    ...
+    int *vec = (int *) malloc ( len * sizeof(int) );
+    ...
+    \end{lstlisting}
+    
+    \begin{center}
+        \small
+        \texttt{ \textbf{ (gdb) {\color{blue} print} {\color{red} *vec@len} }}
+    \end{center}
+\end{frame}
+
+\begin{frame}[fragile]{Consultando Variáveis}
+    Agora imagine que você tem o seguinte trecho de código:
+    \begin{lstlisting}
+    ...
+    n = 5;
+    int *vec = (int *) malloc ( n * sizeof(int) );
+    ...
+    n = 32;
+    ...
+    for (int i = 0; i < n; i++ )
+        printf("%d ", vec[i]);
+    ...
+    \end{lstlisting}
+    
+    Ao executar o programa você recebe o erro de \textit{segmentation fault}. É possível analisar desta forma: 
+    \begin{center}
+        \small
+        \texttt{ \textbf{ (gdb) {\color{blue} print} {\color{red} *vec@n} }}
+    \end{center}
+    Caso n for maior que a capacidade do vetor alocado, possivelmente o gdb irá anunciar que a posição especificada não pode ser acessada.
+\end{frame}
+
+\begin{frame}{Alterando o Conteúdo de uma Variável}
+
+    Para alterar o conteúdo de uma variável basta utilizar o comando:
+    
+    \begin{center}
+        \small
+        \texttt{ \textbf{ (gdb) {\color{blue} set variable} {\color{red} var = } $<${\color{dartmouthgreen}value}$>$ }}
+    \end{center}
+
+    Por exemplo:
+    
+    \begin{center}
+        \small
+        \texttt{ \textbf{ (gdb) {\color{blue} set variable} {\color{red} i = } {\color{dartmouthgreen}10} }}
+    \end{center}
+    
+\end{frame}
+
+\subsection{ Perseguindo Variáveis }
+\frame{\tableofcontents[
+    currentsection,
+    currentsubsection,
+    subsectionstyle=show/shaded/hide
+]}
+\begin{frame}{Perseguindo Variáveis}
+
+    Perseguindo Variáveis é um título de minha autoria para o que o gdb define como \textit{Watchpoints}. \textit{Watchpoints} permitem você acompanhar uma variável durante toda a execução do programa, parando a execução \textbf{sempre} que o conteúdo desta variável for modificado.
+    
+    O comando é:
+    
+    \begin{center}
+        \small
+        \texttt{ \textbf{ (gdb) {\color{blue} watch} {\color{red} var} } }
+    \end{center}
+
+\end{frame}
+
+\begin{frame}{Outras Funcionalidades Básicas}
+
+    Roda o programa até que a função seja finalizada.
+    
+    \begin{center}
+        \small
+        \texttt{ \textbf{ (gdb) {\color{blue} finish} } }
+    \end{center}
+
+    Mostra as informações de todos \textit{Breakpoints} declarados:
+     \begin{center}
+        \small
+        \texttt{ \textbf{ (gdb) {\color{blue} info breakpoints} } }
+    \end{center}
+
+    Para sair do gdb basta:
+    
+    \begin{center}
+        \small
+        \texttt{ \textbf{ (gdb) {\color{blue} quit} } }
+        \\ ou \\
+        \texttt{ \textbf{ (gdb) {\color{blue} q} } }
+    \end{center}
+    
+    Outras informações, comandos e mais detalhes são encontrados na {\color{blue}\textbf{ \underline{\href{https://sourceware.org/gdb/current/onlinedocs/gdb/}{documentação completa do gdb}}}}.
+    
+\end{frame}
